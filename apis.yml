@@ -3,9 +3,11 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/fedex/refs/heads/main/apis.yml
 apis:
   - aid: fedex:fedex
-    name: Fedex
+    name: Fedex API
     tags:
-      - API
+      - Shipping
+      - Logistics
+      - Freight
     humanURL: ' https://developer.fedex.com/api/en-us/home.html'
     properties:
       - url: ' https://developer.fedex.com/api/en-us/home.html'
