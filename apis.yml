@@ -11,9 +11,9 @@ created: '2025-03-01'
 modified: '2026-03-16'
 position: Consumer
 tags:
-  - Shipping
-  - Logistics
   - Freight
+  - Logistics
+  - Shipping
 url: >-
   https://raw.githubusercontent.com/api-evangelist/fedex/refs/heads/main/apis.yml
 specificationVersion: '0.19'
@@ -21,9 +21,9 @@ apis:
   - aid: fedex:fedex
     name: FedEx API
     tags:
-      - Shipping
-      - Logistics
       - Freight
+      - Logistics
+      - Shipping
     humanURL: https://developer.fedex.com/api/en-us/home.html
     baseURL: https://apis.fedex.com
     properties:
