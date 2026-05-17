@@ -37,7 +37,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.fedex.com/api/en-us/get-started.html
   - aid: fedex:ship
     name: FedEx Ship API
@@ -135,11 +135,11 @@ common:
     url: https://www.fedex.com/
   - type: Documentation
     url: https://developer.fedex.com/api/en-us/home.html
-  - type: Getting Started
+  - type: GettingStarted
     url: https://developer.fedex.com/api/en-us/get-started.html
   - type: Catalog
     url: https://developer.fedex.com/api/en-us/catalog.html
-  - type: Sign Up
+  - type: SignUp
     url: https://developer.fedex.com/api/en-us/home.html
   - type: Features
     data:
