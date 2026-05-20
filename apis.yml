@@ -131,6 +131,8 @@ apis:
       - type: Documentation
         url: https://developer.fedex.com/api/en-us/catalog/svm/v1/docs.html
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/fedex
   - type: Website
     url: https://www.fedex.com/
   - type: Documentation
