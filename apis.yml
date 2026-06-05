@@ -20,6 +20,7 @@ tags:
   - Shipping
   - Tracking
   - Webhooks
+  - Fortune 100
 url: https://raw.githubusercontent.com/api-evangelist/fedex/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
