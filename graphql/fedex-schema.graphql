@@ -1,0 +1,1391 @@
+"""
+FedEx GraphQL Schema
+Conceptual schema derived from the FedEx Web Services REST API surface.
+Source: https://developer.fedex.com/
+Covers: Track, Ship, Rate, Address Validation, Pickup, Locations, Authorization, Webhooks
+"""
+
+# ---------------------------------------------------------------------------
+# Enumerations
+# ---------------------------------------------------------------------------
+
+enum ServiceType {
+  FEDEX_EXPRESS
+  FEDEX_GROUND
+  FEDEX_FREIGHT
+  FEDEX_SMART_POST
+  FEDEX_INTERNATIONAL_PRIORITY
+  FEDEX_INTERNATIONAL_ECONOMY
+  FEDEX_INTERNATIONAL_FIRST
+  FEDEX_TWO_DAY
+  FEDEX_TWO_DAY_AM
+  FEDEX_OVERNIGHT_PRIORITY
+  FEDEX_OVERNIGHT_STANDARD
+  FEDEX_OVERNIGHT_FIRST
+  FEDEX_HOME_DELIVERY
+  FEDEX_EXPRESS_SAVER
+}
+
+enum ServiceCode {
+  FXSP
+  FXEP
+  FXEG
+  FXHD
+  FXIP
+  FXIE
+  FXIF
+}
+
+enum PackageType {
+  YOUR_PACKAGING
+  FEDEX_BOX
+  FEDEX_PAK
+  FEDEX_TUBE
+  FEDEX_ENVELOPE
+  FEDEX_SMALL_BOX
+  FEDEX_MEDIUM_BOX
+  FEDEX_LARGE_BOX
+  FEDEX_EXTRA_LARGE_BOX
+  FEDEX_10KG_BOX
+  FEDEX_25KG_BOX
+}
+
+enum WeightUnit {
+  LB
+  KG
+}
+
+enum DimensionUnit {
+  IN
+  CM
+}
+
+enum LabelFormat {
+  PDF
+  PNG
+  ZPL
+  EPL2
+  STOCK_4_X_6
+  STOCK_4_X_8
+  STOCK_4_X_9
+}
+
+enum LabelSize {
+  LABEL_4X6
+  LABEL_4X8
+  LABEL_4X9
+  PAPER_4X6
+  PAPER_4X8
+  PAPER_4X9
+  PAPER_7X4_75
+  PAPER_8_5X11_BOTTOM_HALF_LABEL
+  PAPER_8_5X11_TOP_HALF_LABEL
+}
+
+enum TrackingStatus {
+  IN_TRANSIT
+  DELIVERED
+  EXCEPTION
+  PENDING
+  OUT_FOR_DELIVERY
+  ATTEMPTED_DELIVERY
+  RETURN_TO_SENDER
+  CANCELLED
+  UNKNOWN
+}
+
+enum SignatureOption {
+  NO_SIGNATURE_REQUIRED
+  INDIRECT_SIGNATURE_REQUIRED
+  DIRECT_SIGNATURE_REQUIRED
+  ADULT_SIGNATURE_REQUIRED
+}
+
+enum BillingType {
+  SENDER
+  RECIPIENT
+  THIRD_PARTY
+  COLLECT
+}
+
+enum PaymentType {
+  SENDER
+  RECIPIENT
+  THIRD_PARTY
+}
+
+enum LocationType {
+  FEDEX_OFFICE
+  FEDEX_SHIP_CENTER
+  FEDEX_DROP_BOX
+  WALGREENS
+  DOLLAR_GENERAL
+  AUTHORIZED_SHIP_CENTER
+  SELF_SERVICE_KIOSK
+}
+
+enum WebhookEventType {
+  SHIPMENT_CREATED
+  SHIPMENT_IN_TRANSIT
+  SHIPMENT_OUT_FOR_DELIVERY
+  SHIPMENT_DELIVERED
+  SHIPMENT_EXCEPTION
+  SHIPMENT_RETURNED
+  SHIPMENT_CANCELLED
+}
+
+enum CODCollectionType {
+  ANY
+  CASH
+  COMPANY_CHECK
+  GUARANTEED_FUNDS
+  PERSONAL_CHECK
+}
+
+enum AddressClassification {
+  RESIDENTIAL
+  COMMERCIAL
+  UNKNOWN
+}
+
+enum SpecialServiceType {
+  HOLD_AT_LOCATION
+  HOME_DELIVERY_PREMIUM
+  SATURDAY_DELIVERY
+  SUNDAY_DELIVERY
+  EVENING_DELIVERY
+  DATE_CERTAIN_HOME_DELIVERY
+  APPOINTMENT_HOME_DELIVERY
+  COD
+  DANGEROUS_GOODS
+  DRY_ICE
+  NON_STANDARD_CONTAINER
+  THIRD_PARTY_CONSIGNEE
+  BROKER_SELECT_OPTION
+  ELECTRONIC_TRADE_DOCUMENTS
+  FUTURE_DAY_SHIPMENT
+  INSIDE_DELIVERY
+  INSIDE_PICKUP
+  LIFTGATE_DELIVERY
+  LIFTGATE_PICKUP
+  LIMITED_ACCESS_DELIVERY
+  LIMITED_ACCESS_PICKUP
+}
+
+enum FreightClass {
+  CLASS_50
+  CLASS_55
+  CLASS_60
+  CLASS_65
+  CLASS_70
+  CLASS_77_5
+  CLASS_85
+  CLASS_92_5
+  CLASS_100
+  CLASS_110
+  CLASS_125
+  CLASS_150
+  CLASS_175
+  CLASS_200
+  CLASS_250
+  CLASS_300
+  CLASS_400
+  CLASS_500
+}
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar Date
+scalar Decimal
+scalar JSON
+
+# ---------------------------------------------------------------------------
+# Core Address Types
+# ---------------------------------------------------------------------------
+
+type Address {
+  streetLines: [String!]!
+  city: String
+  stateOrProvinceCode: String
+  postalCode: String!
+  countryCode: String!
+  residential: Boolean
+}
+
+input AddressInput {
+  streetLines: [String!]!
+  city: String
+  stateOrProvinceCode: String
+  postalCode: String!
+  countryCode: String!
+  residential: Boolean
+}
+
+type ValidatedAddress {
+  address: Address!
+  classification: AddressClassification!
+  deliverable: Boolean!
+  score: Float
+  changes: [String]
+}
+
+type AddressValidationResult {
+  resolvedAddresses: [ValidatedAddress!]
+  alerts: [Alert]
+  errors: [APIError]
+}
+
+# ---------------------------------------------------------------------------
+# Auth / Token
+# ---------------------------------------------------------------------------
+
+type Token {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int!
+  scope: String
+}
+
+type APIKey {
+  clientId: String!
+  clientSecret: String!
+  projectName: String
+  created: DateTime
+  expires: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Contact Types
+# ---------------------------------------------------------------------------
+
+type ContactInfo {
+  personName: String
+  companyName: String
+  phoneNumber: String!
+  emailAddress: String
+  faxNumber: String
+}
+
+input ContactInput {
+  personName: String
+  companyName: String
+  phoneNumber: String!
+  emailAddress: String
+  faxNumber: String
+}
+
+type SenderInfo {
+  contact: ContactInfo!
+  address: Address!
+  accountNumber: String
+  tins: [TaxId]
+}
+
+type RecipientInfo {
+  contact: ContactInfo!
+  address: Address!
+  deliveryInstructions: String
+  tins: [TaxId]
+}
+
+type TaxId {
+  tinType: String!
+  number: String!
+  usage: String
+}
+
+# ---------------------------------------------------------------------------
+# Weight & Dimensions
+# ---------------------------------------------------------------------------
+
+type Weight {
+  units: WeightUnit!
+  value: Decimal!
+}
+
+input WeightInput {
+  units: WeightUnit!
+  value: Decimal!
+}
+
+type Dimensions {
+  length: Int!
+  width: Int!
+  height: Int!
+  units: DimensionUnit!
+}
+
+input DimensionsInput {
+  length: Int!
+  width: Int!
+  height: Int!
+  units: DimensionUnit!
+}
+
+type Oversize {
+  isOversize: Boolean!
+  oversizeClass: String
+  handlingCharge: Money
+}
+
+# ---------------------------------------------------------------------------
+# Money
+# ---------------------------------------------------------------------------
+
+type Money {
+  amount: Decimal!
+  currency: String!
+}
+
+# ---------------------------------------------------------------------------
+# Package Types
+# ---------------------------------------------------------------------------
+
+type PackageDetails {
+  sequenceNumber: Int
+  packagingType: PackageType!
+  weight: Weight!
+  dimensions: Dimensions
+  insuredValue: Money
+  customerReferences: [CustomerReference]
+  contentDescription: String
+  oversize: Oversize
+}
+
+input PackageDetailsInput {
+  sequenceNumber: Int
+  packagingType: PackageType!
+  weight: WeightInput!
+  dimensions: DimensionsInput
+  insuredValue: MoneyInput
+  contentDescription: String
+}
+
+input MoneyInput {
+  amount: Decimal!
+  currency: String!
+}
+
+type CustomerReference {
+  customerReferenceType: String!
+  value: String!
+}
+
+# ---------------------------------------------------------------------------
+# Service Types
+# ---------------------------------------------------------------------------
+
+type Service {
+  serviceType: ServiceType!
+  serviceCode: ServiceCode
+  serviceName: String!
+  transitDays: Int
+  deliveryByTime: String
+  availableSpecialServices: [SpecialServiceType]
+}
+
+type SmartPost {
+  indicia: String
+  ancillaryEndorsement: String
+  hubId: String!
+  specialServices: [SpecialServiceType]
+}
+
+type GroundService {
+  serviceType: ServiceType!
+  homeDeliveryPremiumType: String
+  specialServices: [SpecialServiceType]
+}
+
+type ExpressService {
+  serviceType: ServiceType!
+  saturdayDelivery: Boolean
+  sundayDelivery: Boolean
+  specialServices: [SpecialServiceType]
+}
+
+type FreightService {
+  serviceType: ServiceType!
+  freightAccountNumber: String!
+  freightClass: FreightClass
+  packaging: String
+  palletWeight: Weight
+  totalHandlingUnits: Int
+  specialServices: [SpecialServiceType]
+}
+
+type InternationalService {
+  serviceType: ServiceType!
+  dutiesPayor: DutiesPayor
+  customsValue: Money
+  commodities: [Commodity]
+  exportDetail: ExportDetail
+  importerOfRecord: RecipientInfo
+}
+
+# ---------------------------------------------------------------------------
+# Special Services
+# ---------------------------------------------------------------------------
+
+type SpecialService {
+  specialServiceType: SpecialServiceType!
+  holdAtLocation: HoldAtLocation
+  signatureOption: SignatureOption
+  saturdayDelivery: SaturdayDelivery
+  adultSignature: AdultSignature
+  directSignature: DirectSignature
+  cod: COD
+}
+
+type HoldAtLocation {
+  locationId: String
+  locationContactAndAddress: ServiceCenter
+}
+
+type SaturdayDelivery {
+  requested: Boolean!
+}
+
+type AdultSignature {
+  required: Boolean!
+  minimumAge: Int
+}
+
+type DirectSignature {
+  required: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Billing
+# ---------------------------------------------------------------------------
+
+type BillingInfo {
+  billingType: BillingType!
+  payor: Payor
+}
+
+type Payor {
+  responsibleParty: ResponsibleParty!
+}
+
+type ResponsibleParty {
+  accountNumber: AccountNumber!
+  contact: ContactInfo
+  address: Address
+}
+
+type AccountNumber {
+  value: String!
+}
+
+type ThirdParty {
+  contact: ContactInfo!
+  address: Address!
+  accountNumber: String!
+}
+
+type DutiesPayor {
+  paymentType: PaymentType!
+  payor: Payor
+}
+
+# ---------------------------------------------------------------------------
+# COD
+# ---------------------------------------------------------------------------
+
+type COD {
+  codCollectionAmount: Money!
+  codCollectionType: CODCollectionType!
+  financialInstitutionContactAndAddress: ContactInfo
+  returnTrackingId: TrackingNumber
+}
+
+# ---------------------------------------------------------------------------
+# Label Types
+# ---------------------------------------------------------------------------
+
+type Label {
+  type: String
+  shippingDocumentFormat: LabelFormat
+  labelData: String
+  encodedLabel: String
+}
+
+type LabelSpecification {
+  labelFormatType: LabelFormat!
+  labelSize: LabelSize
+  labelPrintingOrientation: String
+}
+
+type ShippingLabel {
+  label: Label!
+  trackingNumber: String!
+  barCode: String
+  mailSvc: String
+}
+
+type ClearanceLabel {
+  label: Label!
+  entryNumber: String
+  entryType: String
+}
+
+type DangerousLabel {
+  label: Label!
+  regulatorySet: String
+  handlingInstructions: String
+}
+
+# ---------------------------------------------------------------------------
+# Tracking Types
+# ---------------------------------------------------------------------------
+
+type TrackingNumber {
+  trackingNumber: String!
+  trackingIdType: String
+  formId: String
+  uspsApplicationId: String
+}
+
+type TrackingLocation {
+  streetLines: [String]
+  city: String
+  stateOrProvinceCode: String
+  postalCode: String
+  countryCode: String
+  countryName: String
+  residential: Boolean
+  classification: AddressClassification
+}
+
+type TrackingEvent {
+  timestamp: DateTime!
+  eventType: String!
+  eventDescription: String!
+  address: TrackingLocation
+  stationId: String
+  exceptions: [TrackingException]
+  delayDetail: DelayDetail
+}
+
+type TrackingException {
+  code: String!
+  description: String!
+  type: String
+}
+
+type DelayDetail {
+  type: String
+  subType: String
+  status: String
+}
+
+type TrackingStatus {
+  code: String!
+  description: String!
+  simplifiedStatus: String
+}
+
+type SignatureProof {
+  signatoryName: String
+  signatureImage: String
+  deliveryAttempts: Int
+  deliveryAddress: Address
+  signatureType: SignatureOption
+}
+
+type POD {
+  trackingNumber: String!
+  deliveredDateTime: DateTime
+  signatureProof: SignatureProof
+  deliveryAddress: Address
+  deliveredToName: String
+  deliveryLocationDescription: String
+}
+
+type TrackingDetails {
+  trackingNumber: String!
+  trackingNumberInfo: TrackingNumber
+  additionalTrackingInfo: AdditionalTrackingInfo
+  shipperInformation: SenderInfo
+  recipientInformation: RecipientInfo
+  latestStatusDetail: TrackingStatus
+  dateAndTimes: [DateAndTime]
+  packageDetails: PackageDetails
+  trackingEvents: [TrackingEvent]
+  specialHandlings: [String]
+  estimatedDeliveryTimeWindow: TimeWindow
+  actualDeliveryAddress: Address
+  deliveryDetails: DeliveryDetails
+  pod: POD
+  returnsDetail: ReturnsDetail
+}
+
+type AdditionalTrackingInfo {
+  hasAssociatedShipments: Boolean
+  nickname: String
+  packageIdentifiers: [PackageIdentifier]
+}
+
+type PackageIdentifier {
+  type: String!
+  values: [String!]!
+  trackingNumberUniqueId: String
+}
+
+type DateAndTime {
+  type: String!
+  dateTime: DateTime!
+}
+
+type TimeWindow {
+  description: String
+  window: Window
+  type: String
+}
+
+type Window {
+  begins: DateTime
+  ends: DateTime
+}
+
+type DeliveryDetails {
+  receivedByName: String
+  deliveryAttempts: String
+  deliveryOptionEligibilityDetails: [DeliveryOptionEligibility]
+  offeredDeliveryOptions: [String]
+  deliveredToLocationDescription: String
+  signatureType: SignatureOption
+  actualDeliveryAddress: Address
+}
+
+type DeliveryOptionEligibility {
+  option: String!
+  eligibility: String!
+}
+
+type ReturnsDetail {
+  returnsLabel: String
+  returnTrackingId: String
+}
+
+# ---------------------------------------------------------------------------
+# Rate Types
+# ---------------------------------------------------------------------------
+
+type RateRequest {
+  accountNumber: AccountNumber
+  requestedShipment: RequestedShipment
+  rateRequestType: [String]
+  carrierCodes: [String]
+}
+
+type RequestedShipment {
+  shipper: SenderInfo
+  recipients: [RecipientInfo]
+  serviceType: ServiceType
+  packagingType: PackageType
+  pickupType: String
+  rateRequestedTypes: [String]
+  requestedPackageLineItems: [PackageDetails]
+  shipDateStamp: Date
+  customsClearanceDetail: CustomsClearanceDetail
+  totalInsuredValue: Money
+}
+
+type RateReply {
+  transactionId: String
+  customerTransactionId: String
+  output: RateOutput
+}
+
+type RateOutput {
+  rateReplyDetails: [RateDetail]
+  quoteDate: Date
+  encoded: Boolean
+  alerts: [Alert]
+}
+
+type RateDetail {
+  serviceType: ServiceType!
+  serviceName: String!
+  packagingType: PackageType
+  commit: CommitDetail
+  customerMessages: [CustomerMessage]
+  ratedShipmentDetails: [RatedShipmentDetail]
+  operationalDetail: OperationalDetail
+  signatureOptionType: SignatureOption
+}
+
+type RatedShipmentDetail {
+  rateType: String
+  ratedWeightMethod: String
+  totalDiscounts: Money
+  totalBaseCharge: Money
+  totalNetCharge: Money!
+  totalNetFedExCharge: Money
+  shipmentRateDetail: ShipmentRateDetail
+  ratedPackages: [RatedPackage]
+}
+
+type ShipmentRateDetail {
+  rateZone: String
+  dimDivisor: Int
+  fuelSurchargePercent: Decimal
+  totalSurcharges: Money
+  totalFreightDiscount: Money
+  surCharges: [SurchargeDetail]
+  discounts: [DiscountDetail]
+  pricingCode: String
+  totalBillingWeight: Weight
+  currency: String
+}
+
+type SurchargeDetail {
+  type: String!
+  description: String!
+  amount: Money!
+}
+
+type FuelSurcharge {
+  type: String!
+  description: String!
+  amount: Money!
+  percentage: Decimal
+}
+
+type DiscountDetail {
+  discountType: String!
+  description: String!
+  amount: Money!
+  percent: Decimal
+}
+
+type RatedPackage {
+  sequenceNumber: Int
+  trackingIds: [TrackingNumber]
+  groupNumber: Int
+  packageRateDetail: PackageRateDetail
+}
+
+type PackageRateDetail {
+  rateType: String
+  ratedWeightMethod: String
+  dimWeight: Weight
+  billingWeight: Weight
+  baseCharge: Money!
+  netCharge: Money!
+  totalSurcharges: Money
+  netFedExCharge: Money
+  surcharges: [SurchargeDetail]
+}
+
+type CommitDetail {
+  serviceType: ServiceType
+  packagingType: PackageType
+  deliveryWindow: TimeWindow
+  commitTimestamp: DateTime
+  dayCxsFormat: String
+  daysInTransit: Int
+}
+
+type DeliveryEstimate {
+  dayOfWeek: String
+  time: String
+  transitDays: Int
+  date: Date
+}
+
+type CustomerMessage {
+  code: String
+  message: String
+}
+
+type OperationalDetail {
+  originServiceArea: String
+  destinationServiceArea: String
+  transitTime: String
+  packagingCode: String
+  deliveryDay: String
+  commitDate: Date
+  commitDay: String
+  ineligibleForMoneyBackGuarantee: Boolean
+  astraDescription: String
+  airportId: String
+  stateOrProvinceCode: String
+  scac: String
+}
+
+# ---------------------------------------------------------------------------
+# Shipment Types
+# ---------------------------------------------------------------------------
+
+type ShipmentRequest {
+  shipper: SenderInfo!
+  recipients: [RecipientInfo!]!
+  serviceType: ServiceType!
+  packagingType: PackageType!
+  pickupType: String
+  shippingChargesPayment: BillingInfo
+  labelSpecification: LabelSpecification
+  requestedPackageLineItems: [PackageDetails!]!
+  shipDatestamp: Date
+  specialServicesRequested: SpecialServicesRequest
+  customsClearanceDetail: CustomsClearanceDetail
+  smartPostInfoDetail: SmartPost
+  totalInsuredValue: Money
+  origin: Origin
+}
+
+type SpecialServicesRequest {
+  specialServiceTypes: [SpecialServiceType]
+  holdAtLocationDetail: HoldAtLocation
+  signatureOptionDetail: SignatureOption
+  alcoholDetail: AlcoholDetail
+  dangerousGoodsDetail: DangerousGoodsDetail
+  homeDeliveryPremiumDetail: HomeDeliveryPremium
+  returnShipmentDetail: ReturnShipment
+}
+
+type AlcoholDetail {
+  alcoholRecipientType: String
+  orderType: String
+}
+
+type DangerousGoodsDetail {
+  offeror: String
+  regulatorySet: String
+  accessibility: String
+  innerReceptacles: [InnerReceptacle]
+  containers: [DGContainer]
+}
+
+type InnerReceptacle {
+  quantity: Int
+}
+
+type DGContainer {
+  numberOfContainers: Int
+  hazardousCommodities: [HazardousCommodity]
+}
+
+type HazardousCommodity {
+  quantity: HazQuantity
+  description: HazDescription
+  options: HazOptions
+}
+
+type HazQuantity {
+  quantityType: String
+  amount: Decimal
+  units: String
+}
+
+type HazDescription {
+  id: String
+  packingGroup: String
+  properShippingName: String
+  technicalName: String
+  hazardClass: String
+}
+
+type HazOptions {
+  labelTextOption: String
+  customerSuppliedLabelText: String
+}
+
+type HomeDeliveryPremium {
+  homeDeliveryPremiumType: String
+  date: Date
+  phoneNumber: String
+}
+
+type Origin {
+  address: Address
+}
+
+type ShipmentDetails {
+  masterTrackingNumber: TrackingNumber!
+  serviceType: ServiceType!
+  shipDate: Date
+  totalWeight: Weight
+  totalInsuredValue: Money
+  shipmentRating: RatedShipmentDetail
+  pieces: [PackageDetails]
+  specialServices: [SpecialService]
+  shipper: SenderInfo
+  recipient: RecipientInfo
+}
+
+type ShipmentResult {
+  masterTrackingNumber: TrackingNumber!
+  serviceType: ServiceType!
+  completedShipmentDetail: CompletedShipmentDetail
+  alerts: [Alert]
+  errors: [APIError]
+}
+
+type CompletedShipmentDetail {
+  usDomestic: Boolean
+  carrierCode: String
+  masterTrackingId: TrackingNumber
+  serviceDescription: ServiceDescription
+  packagingDescription: String
+  operationalDetail: OperationalDetail
+  hazardousCommodityContent: [HazardousCommodity]
+  shipmentRating: RatedShipmentDetail
+  completedPackageDetails: [CompletedPackageDetail]
+}
+
+type ServiceDescription {
+  serviceType: ServiceType
+  code: String
+  names: [ServiceName]
+  operatingOrgCodes: [String]
+  astraDescription: String
+  description: String
+  serviceId: String
+  serviceCategory: String
+}
+
+type ServiceName {
+  type: String
+  encoding: String
+  value: String!
+}
+
+type CompletedPackageDetail {
+  sequenceNumber: Int
+  operationalDetail: OperationalDetail
+  trackingIds: [TrackingNumber]
+  label: ShippingLabel
+  signatureOption: SignatureOption
+  accessDetail: AccessDetail
+  packageRating: PackageRateDetail
+  clearanceLabel: ClearanceLabel
+}
+
+type AccessDetail {
+  accessDetailType: String
+  accessLocation: Address
+}
+
+input CreateShipmentRequest {
+  shipper: ContactInput!
+  shipperAddress: AddressInput!
+  recipient: ContactInput!
+  recipientAddress: AddressInput!
+  serviceType: ServiceType!
+  packagingType: PackageType!
+  weight: WeightInput!
+  dimensions: DimensionsInput
+  labelFormat: LabelFormat
+  accountNumber: String!
+  shipDate: Date
+  insuredValue: MoneyInput
+  signatureOption: SignatureOption
+  saturdayDelivery: Boolean
+}
+
+type CreateShipmentReply {
+  transactionId: String
+  customerTransactionId: String
+  output: ShipmentResult
+}
+
+# ---------------------------------------------------------------------------
+# Return Shipment
+# ---------------------------------------------------------------------------
+
+type ReturnLabel {
+  label: Label!
+  trackingNumber: String!
+  returnTrackingId: TrackingNumber!
+}
+
+type ReturnShipment {
+  returnType: String
+  rma: RMA
+  returnEmailDetail: ReturnEmailDetail
+}
+
+type RMA {
+  number: String
+  reason: String
+}
+
+type ReturnEmailDetail {
+  merchantPhoneNumber: String
+  allowedSpecialService: String
+}
+
+input ReturnShipmentRequest {
+  originalTrackingNumber: String!
+  recipient: ContactInput!
+  recipientAddress: AddressInput!
+  shipper: ContactInput!
+  shipperAddress: AddressInput!
+  serviceType: ServiceType!
+  packagingType: PackageType!
+  weight: WeightInput!
+  accountNumber: String!
+  rmaNumber: String
+  labelFormat: LabelFormat
+}
+
+# ---------------------------------------------------------------------------
+# Pickup Types
+# ---------------------------------------------------------------------------
+
+type PickupRequest {
+  associatedAccountNumber: AccountNumber!
+  originDetail: PickupOriginDetail!
+  totalWeight: Weight
+  packageCount: Int
+  carrierCode: String
+  remarks: String
+  countryRelationships: String
+  pickupNotificationDetail: PickupNotificationDetail
+}
+
+type PickupOriginDetail {
+  readyDateTimestamp: DateTime!
+  companyCloseTime: String!
+  address: Address!
+  contact: ContactInfo!
+  packageLocation: String
+  buildingPart: String
+  buildingPartDescription: String
+}
+
+type PickupNotificationDetail {
+  emailDetails: [PickupEmailDetail]
+  format: String
+  userMessage: String
+}
+
+type PickupEmailDetail {
+  address: String!
+  locale: String
+  notificationEventType: String
+}
+
+type PickupConfirmation {
+  pickupConfirmationCode: String!
+  message: String
+  location: String
+  readyTimestamp: DateTime
+}
+
+type PickupAvailability {
+  pickupDate: Date
+  defaultReadyTime: String
+  defaultLatestTimeOptions: String
+  accessTime: String
+  residentialAvailabilityIndicator: Boolean
+  defaultAccessTime: String
+  localPickupCutoffTime: DateTime
+  hubPickupCutoffTime: DateTime
+  countryRelationship: String
+}
+
+# ---------------------------------------------------------------------------
+# Location Types
+# ---------------------------------------------------------------------------
+
+type DropoffLocation {
+  locationId: String
+  address: Address!
+  locationType: LocationType!
+  geoPositionalCoordinates: GeoCoordinates
+  distance: Distance
+  businessHoursPhoneNumber: String
+  hoursOfOperation: [HoursOfOperation]
+  services: [String]
+  attributes: [LocationAttribute]
+}
+
+type ServiceCenter {
+  locationId: String
+  locationName: String
+  locationContactAndAddress: LocationContactAndAddress!
+  locationType: LocationType!
+  distance: Distance
+  geoPositionalCoordinates: GeoCoordinates
+  hoursOfOperation: [HoursOfOperation]
+  phoneNumber: String
+  services: [String]
+  parkingDescription: String
+  attributes: [LocationAttribute]
+}
+
+type LocationContactAndAddress {
+  contact: ContactInfo
+  address: Address!
+}
+
+type GeoCoordinates {
+  latitude: Decimal!
+  longitude: Decimal!
+}
+
+type Distance {
+  value: Decimal!
+  units: String!
+}
+
+type HoursOfOperation {
+  dayOfWeek: String!
+  timeRange: [TimeRange]
+  holidayObserved: Boolean
+  closed: Boolean
+}
+
+type TimeRange {
+  begins: String
+  ends: String
+}
+
+type LocationAttribute {
+  name: String!
+  description: String
+  value: Boolean
+}
+
+# ---------------------------------------------------------------------------
+# Customs / International
+# ---------------------------------------------------------------------------
+
+type CustomsClearanceDetail {
+  dutiesPayment: BillingInfo
+  commodities: [Commodity]
+  totalCustomsValue: Money
+  exportDetail: ExportDetail
+  brokerDetail: BrokerDetail
+}
+
+type Commodity {
+  numberOfPieces: Int
+  description: String!
+  countryOfManufacture: String!
+  harmonizedCode: String
+  name: String
+  quantity: Int
+  quantityUnits: String
+  unitPrice: Money
+  customsValue: Money
+  weight: Weight
+  exportLicenseNumber: String
+  exportLicenseExpirationDate: Date
+  partNumber: String
+}
+
+type ExportDetail {
+  b13AFilingOption: String
+  exportComplianceStatement: String
+  permitNumber: String
+}
+
+type BrokerDetail {
+  brokers: [Broker]
+  type: String
+}
+
+type Broker {
+  broker: SenderInfo
+  type: String
+}
+
+# ---------------------------------------------------------------------------
+# Webhook Types
+# ---------------------------------------------------------------------------
+
+type Webhook {
+  webhookId: String!
+  endpoint: String!
+  eventTypes: [WebhookEventType!]!
+  accountNumber: String!
+  active: Boolean!
+  created: DateTime
+  lastModified: DateTime
+  secretKey: String
+}
+
+type WebhookEvent {
+  eventId: String!
+  eventType: WebhookEventType!
+  timestamp: DateTime!
+  trackingNumber: String!
+  trackingDetails: TrackingDetails
+  payload: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Shared / Utility Types
+# ---------------------------------------------------------------------------
+
+type Alert {
+  code: String!
+  alertType: String!
+  message: String!
+}
+
+type APIError {
+  code: String!
+  message: String!
+  details: [ErrorDetail]
+}
+
+type ErrorDetail {
+  code: String
+  message: String
+  propertyPath: String
+  value: String
+}
+
+# ---------------------------------------------------------------------------
+# Root Types
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Track a shipment by tracking number."""
+  trackShipment(
+    trackingNumber: String!
+    shipDateBegin: String
+    shipDateEnd: String
+    accountNumber: String
+  ): TrackingDetails
+
+  """Track multiple shipments by a list of tracking numbers."""
+  trackShipments(
+    trackingNumbers: [String!]!
+    accountNumber: String
+  ): [TrackingDetails]
+
+  """Track by customer reference number."""
+  trackByReference(
+    referenceNumber: String!
+    accountNumber: String!
+    shipDateBegin: String
+    shipDateEnd: String
+  ): [TrackingDetails]
+
+  """Get rate quotes for a proposed shipment."""
+  getRates(
+    accountNumber: String!
+    serviceType: ServiceType
+    packagingType: PackageType
+    shipDate: Date
+    originAddress: AddressInput!
+    destinationAddress: AddressInput!
+    packages: [PackageDetailsInput!]!
+    rateTypes: [String]
+  ): RateReply
+
+  """Validate a postal address."""
+  validateAddress(address: AddressInput!): AddressValidationResult
+
+  """Find FedEx locations near an address."""
+  findLocations(
+    address: AddressInput!
+    radiusDistance: Decimal
+    radiusUnit: String
+    locationTypes: [LocationType]
+    services: [String]
+    maxResults: Int
+  ): [ServiceCenter]
+
+  """Check pickup availability for an origin address."""
+  getPickupAvailability(
+    countryCode: String!
+    postalCode: String!
+    accountNumber: String!
+    pickupDate: Date
+    packageCount: Int
+    weight: WeightInput
+  ): PickupAvailability
+
+  """List registered webhooks for an account."""
+  listWebhooks(accountNumber: String!): [Webhook]
+
+  """Get details for a specific webhook."""
+  getWebhook(webhookId: String!, accountNumber: String!): Webhook
+
+  """Get available FedEx services for an origin-destination pair."""
+  getAvailableServices(
+    originAddress: AddressInput!
+    destinationAddress: AddressInput!
+    accountNumber: String
+  ): [Service]
+
+  """Retrieve proof of delivery for a delivered shipment."""
+  getProofOfDelivery(
+    trackingNumber: String!
+    accountNumber: String!
+  ): POD
+}
+
+type Mutation {
+  """Create a shipment and generate shipping label(s)."""
+  createShipment(request: CreateShipmentRequest!): CreateShipmentReply
+
+  """Cancel a shipment by tracking number."""
+  cancelShipment(
+    trackingNumber: String!
+    accountNumber: String!
+  ): Boolean
+
+  """Create a return shipment and label."""
+  createReturnShipment(request: ReturnShipmentRequest!): CreateShipmentReply
+
+  """Schedule a package pickup."""
+  schedulePickup(
+    accountNumber: String!
+    address: AddressInput!
+    contact: ContactInput!
+    readyDateTime: DateTime!
+    closeTime: String!
+    packageCount: Int
+    totalWeight: WeightInput
+    remarks: String
+  ): PickupConfirmation
+
+  """Cancel a scheduled pickup."""
+  cancelPickup(
+    confirmationNumber: String!
+    accountNumber: String!
+    scheduledDate: Date!
+    location: String
+  ): Boolean
+
+  """Register a webhook for shipment visibility events."""
+  registerWebhook(
+    endpoint: String!
+    eventTypes: [WebhookEventType!]!
+    accountNumber: String!
+  ): Webhook
+
+  """Update an existing webhook registration."""
+  updateWebhook(
+    webhookId: String!
+    endpoint: String
+    eventTypes: [WebhookEventType]
+    active: Boolean
+    accountNumber: String!
+  ): Webhook
+
+  """Delete a registered webhook."""
+  deleteWebhook(
+    webhookId: String!
+    accountNumber: String!
+  ): Boolean
+
+  """Generate an OAuth 2.0 access token."""
+  generateToken(
+    clientId: String!
+    clientSecret: String!
+  ): Token
+}
