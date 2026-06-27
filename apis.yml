@@ -148,7 +148,7 @@ common:
   url: https://developer.fedex.com/api/en-us/get-started.html
 - type: Catalog
   url: https://developer.fedex.com/api/en-us/catalog.html
-- type: SignUp
+- type: Signup
   url: https://developer.fedex.com/api/en-us/home.html
 - type: Features
   data:
