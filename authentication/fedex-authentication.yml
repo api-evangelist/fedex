@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/fedex-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: |-
+    OAuth 2.0 access token returned by POST /oauth/token using
+    client_credentials with FedEx Developer Portal credentials.
+  sources:
+  - openapi/fedex-openapi.yml

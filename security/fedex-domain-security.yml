@@ -1,0 +1,32 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.fedex.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  5 23:59:59 2026 GMT
+  hsts: null
+- host: developer.fedex.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  5 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 86400
+- host: apis.fedex.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 19 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: fedex.com
+  dnssec: false
+  caa:
+  - 0 issue "digicert.com"
+  - 0 issue "sectigo.com"
+  - 0 issue "identrust.com"
+  - 0 iodef "mailto:hostmaster@fedex.com"
+  - 0 issue "pki.goog"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
