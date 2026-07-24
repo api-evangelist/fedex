@@ -1,0 +1,102 @@
+openapi: 3.1.0
+info:
+  title: FedEx Track Authorization API
+  version: 1.0.0
+  description: 'OpenAPI 3.1 specification covering the FedEx OAuth 2.0 token endpoint and
+
+    the core FedEx Track API v1 operations as documented on the FedEx Developer
+
+    Portal (https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html).
+
+    Includes tracking by tracking number, tracking by reference,
+
+    tracking by Transportation Control Number (TCN), associated shipments,
+
+    document retrieval, and shipment notifications. Schemas are intentionally
+
+    permissive to remain compatible with the live FedEx payloads; consult the
+
+    FedEx Developer Portal for full payload field definitions.
+
+    '
+  contact:
+    name: FedEx Developer Portal
+    url: https://developer.fedex.com/
+servers:
+- url: https://apis.fedex.com
+  description: Production
+- url: https://apis-sandbox.fedex.com
+  description: Sandbox / test environment
+security:
+- bearerAuth: []
+tags:
+- name: Authorization
+  description: OAuth 2.0 token issuance for FedEx APIs
+paths:
+  /oauth/token:
+    post:
+      tags:
+      - Authorization
+      summary: Issue OAuth 2.0 access token
+      description: 'Exchanges FedEx Developer Portal client credentials for an OAuth 2.0
+
+        bearer access token. The returned access token is valid for one hour
+
+        and must be included as a Bearer token on subsequent API calls.
+
+        '
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - grant_type
+              - client_id
+              - client_secret
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                  - client_credentials
+                  - csp_credentials
+                  - client_pc_credentials
+                client_id:
+                  type: string
+                  description: API key issued by the FedEx Developer Portal
+                client_secret:
+                  type: string
+                  description: Secret key issued by the FedEx Developer Portal
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                    example: bearer
+                  expires_in:
+                    type: integer
+                    example: 3600
+                  scope:
+                    type: string
+        '401':
+          description: Authentication failure
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth 2.0 access token returned by POST /oauth/token using
+
+        client_credentials with FedEx Developer Portal credentials.
+
+        '
