@@ -6,7 +6,20 @@ description: FedEx is a logistics company that provides shipping and delivery se
   a suite of REST APIs covering tracking, shipping, rating, address validation, pickup,
   locator, trade documents, and post-shipment visibility through their developer portal.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fedex.png
 access: 3rd-Party
 created: '2025-03-01'
 modified: '2026-05-04'
@@ -26,9 +39,10 @@ specificationVersion: '0.19'
 apis:
 - aid: fedex:track
   name: FedEx Track API
-  description: Track API allows customers and partners to retrieve up-to-the-minute
-    package and shipment status, scan events, delivery details, and proof of delivery
-    using tracking numbers, reference numbers, or TCN.
+  description: >-
+    Track API allows customers and partners to retrieve up-to-the-minute package and shipment status,
+    scan events, delivery details, and proof of delivery using tracking numbers, reference numbers, or
+    TCN.
   humanURL: https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -44,9 +58,9 @@ apis:
     type: GraphQL
 - aid: fedex:ship
   name: FedEx Ship API
-  description: Ship API lets developers create domestic and international shipments,
-    generate shipping labels, validate addresses, schedule pickups, and manage end-to-end
-    shipment workflows programmatically.
+  description: >-
+    Ship API lets developers create domestic and international shipments, generate shipping labels, validate
+    addresses, schedule pickups, and manage end-to-end shipment workflows programmatically.
   humanURL: https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -58,9 +72,9 @@ apis:
     url: https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html
 - aid: fedex:rate
   name: FedEx Rate API
-  description: Rate API returns rate quotes and transit times for FedEx Express, Ground,
-    Freight, and SmartPost services so applications can present pricing and delivery
-    options at checkout or during fulfillment.
+  description: >-
+    Rate API returns rate quotes and transit times for FedEx Express, Ground, Freight, and SmartPost services
+    so applications can present pricing and delivery options at checkout or during fulfillment.
   humanURL: https://developer.fedex.com/api/en-us/catalog/rate/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -72,9 +86,9 @@ apis:
     url: https://developer.fedex.com/api/en-us/catalog/rate/v1/docs.html
 - aid: fedex:address-validation
   name: FedEx Address Validation API
-  description: Address Validation API verifies postal addresses for deliverability,
-    classifies them as residential or commercial, and corrects common formatting and
-    spelling issues prior to shipment creation.
+  description: >-
+    Address Validation API verifies postal addresses for deliverability, classifies them as residential
+    or commercial, and corrects common formatting and spelling issues prior to shipment creation.
   humanURL: https://developer.fedex.com/api/en-us/catalog/address-validation/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -85,9 +99,9 @@ apis:
     url: https://developer.fedex.com/api/en-us/catalog/address-validation/v1/docs.html
 - aid: fedex:pickup
   name: FedEx Pickup API
-  description: Pickup API provides programmatic access to schedule, modify, and cancel
-    package pickups, and to determine pickup availability for a given origin and service
-    combination.
+  description: >-
+    Pickup API provides programmatic access to schedule, modify, and cancel package pickups, and to determine
+    pickup availability for a given origin and service combination.
   humanURL: https://developer.fedex.com/api/en-us/catalog/pickup/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -99,9 +113,9 @@ apis:
     url: https://developer.fedex.com/api/en-us/catalog/pickup/v1/docs.html
 - aid: fedex:locations
   name: FedEx Locations API
-  description: Locations API helps applications find FedEx Office, FedEx Ship Center,
-    drop boxes, and authorized ship centers near a given address or coordinate, including
-    hours of operation and supported services.
+  description: >-
+    Locations API helps applications find FedEx Office, FedEx Ship Center, drop boxes, and authorized
+    ship centers near a given address or coordinate, including hours of operation and supported services.
   humanURL: https://developer.fedex.com/api/en-us/catalog/locations/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -112,9 +126,9 @@ apis:
     url: https://developer.fedex.com/api/en-us/catalog/locations/v1/docs.html
 - aid: fedex:authorization
   name: FedEx Authorization API
-  description: Authorization API issues OAuth 2.0 access tokens used to authenticate
-    all other FedEx API calls. Tokens are obtained via client credentials generated
-    from a FedEx Developer Portal project.
+  description: >-
+    Authorization API issues OAuth 2.0 access tokens used to authenticate all other FedEx API calls. Tokens
+    are obtained via client credentials generated from a FedEx Developer Portal project.
   humanURL: https://developer.fedex.com/api/en-us/catalog/authorization/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -125,9 +139,9 @@ apis:
     url: https://developer.fedex.com/api/en-us/catalog/authorization/v1/docs.html
 - aid: fedex:shipment-visibility-webhook
   name: FedEx Shipment Visibility Webhook
-  description: Shipment Visibility Webhook pushes near real-time tracking events to
-    a registered HTTPS endpoint, eliminating the need to repeatedly poll the Track
-    API for shipment status changes.
+  description: >-
+    Shipment Visibility Webhook pushes near real-time tracking events to a registered HTTPS endpoint,
+    eliminating the need to repeatedly poll the Track API for shipment status changes.
   humanURL: https://developer.fedex.com/api/en-us/catalog/svm/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
@@ -137,6 +151,26 @@ apis:
   properties:
   - type: Documentation
     url: https://developer.fedex.com/api/en-us/catalog/svm/v1/docs.html
+- aid: fedex:fedex-authorization-api
+  name: FedEx Authorization API
+  description: OAuth 2.0 token issuance for FedEx APIs
+  humanURL: https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html
+  baseURL: https://apis.fedex.com
+  tags:
+  - Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/fedex-authorization-api-openapi.yml
+- aid: fedex:fedex-track-api
+  name: FedEx Track API
+  description: Track API v1 operations
+  humanURL: https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html
+  baseURL: https://apis.fedex.com
+  tags:
+  - Track
+  properties:
+  - type: OpenAPI
+    url: openapi/fedex-track-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/fedex-agentic-access.yml
