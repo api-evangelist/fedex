@@ -1,0 +1,16 @@
+{
+  "provider": "fedex",
+  "sources": [
+    "fedex-authorization-api-openapi.yml",
+    "fedex-track-api-openapi.yml"
+  ],
+  "outputs": [
+    "fedex-authorization-api-openapi.yml",
+    "fedex-track-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

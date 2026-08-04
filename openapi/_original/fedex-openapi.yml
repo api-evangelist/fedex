@@ -1,0 +1,361 @@
+openapi: 3.1.0
+info:
+  title: FedEx Track API
+  version: "1.0.0"
+  description: |
+    OpenAPI 3.1 specification covering the FedEx OAuth 2.0 token endpoint and
+    the core FedEx Track API v1 operations as documented on the FedEx Developer
+    Portal (https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html).
+    Includes tracking by tracking number, tracking by reference,
+    tracking by Transportation Control Number (TCN), associated shipments,
+    document retrieval, and shipment notifications. Schemas are intentionally
+    permissive to remain compatible with the live FedEx payloads; consult the
+    FedEx Developer Portal for full payload field definitions.
+  contact:
+    name: FedEx Developer Portal
+    url: https://developer.fedex.com/
+servers:
+  - url: https://apis.fedex.com
+    description: Production
+  - url: https://apis-sandbox.fedex.com
+    description: Sandbox / test environment
+security:
+  - bearerAuth: []
+tags:
+  - name: Authorization
+    description: OAuth 2.0 token issuance for FedEx APIs
+  - name: Track
+    description: Track API v1 operations
+paths:
+  /oauth/token:
+    post:
+      tags: [Authorization]
+      summary: Issue OAuth 2.0 access token
+      description: |
+        Exchanges FedEx Developer Portal client credentials for an OAuth 2.0
+        bearer access token. The returned access token is valid for one hour
+        and must be included as a Bearer token on subsequent API calls.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [grant_type, client_id, client_secret]
+              properties:
+                grant_type:
+                  type: string
+                  enum: [client_credentials, csp_credentials, client_pc_credentials]
+                client_id:
+                  type: string
+                  description: API key issued by the FedEx Developer Portal
+                client_secret:
+                  type: string
+                  description: Secret key issued by the FedEx Developer Portal
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  token_type: { type: string, example: bearer }
+                  expires_in: { type: integer, example: 3600 }
+                  scope: { type: string }
+        '401':
+          description: Authentication failure
+  /track/v1/trackingnumbers:
+    post:
+      tags: [Track]
+      summary: Track by tracking numbers
+      description: |
+        Returns up-to-the-minute package and shipment status, scan events,
+        and delivery details for up to 30 tracking numbers per request.
+      parameters:
+        - name: x-locale
+          in: header
+          schema: { type: string, example: en_US }
+        - name: x-customer-transaction-id
+          in: header
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackingRequest'
+      responses:
+        '200':
+          description: Tracking results
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrackingResponse' }
+        '400': { description: Bad request }
+        '401': { description: Unauthorized }
+        '404': { description: Not found }
+        '500': { description: Internal server error }
+  /track/v1/referencenumbers:
+    post:
+      tags: [Track]
+      summary: Track by reference
+      description: |
+        Tracks shipments using customer-provided reference identifiers such as
+        purchase order (PO), invoice, or Bill of Lading (BOL).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                includeDetailedScans: { type: boolean }
+                trackingInfo:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      shipDateBegin: { type: string, format: date }
+                      shipDateEnd: { type: string, format: date }
+                      carrierCode: { type: string, example: FDXE }
+                      referenceTypeCode:
+                        type: string
+                        enum: [BILL_OF_LADING, INVOICE, PURCHASE_ORDER, REFERENCE, SHIPPER_REFERENCE]
+                      value: { type: string }
+                      destinationCountryCode: { type: string }
+                      destinationPostalCode: { type: string }
+                      shipperAccountNumber: { type: string }
+      responses:
+        '200':
+          description: Tracking results
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrackingResponse' }
+  /track/v1/tcn:
+    post:
+      tags: [Track]
+      summary: Track by Transportation Control Number (TCN)
+      description: |
+        Tracks shipments using the U.S. Government Transportation Control
+        Number (TCN). TCN tracking is intended for U.S. Government users.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                includeDetailedScans: { type: boolean }
+                trackingInfo:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      trackingNumberInfo:
+                        type: object
+                        properties:
+                          trackingNumber:
+                            type: string
+                            description: Transportation Control Number
+      responses:
+        '200':
+          description: Tracking results
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrackingResponse' }
+  /track/v1/associatedshipments:
+    post:
+      tags: [Track]
+      summary: Track associated shipments (multi-piece)
+      description: |
+        Returns associated tracking information for multiple-piece shipments
+        (MPS) - related child tracking numbers for a given master.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                masterTrackingNumberInfo:
+                  type: object
+                  properties:
+                    trackingNumberInfo:
+                      type: object
+                      properties:
+                        trackingNumber: { type: string }
+                associatedType:
+                  type: string
+                  enum: [STANDARD_MPS, GROUP_MPS, OUTBOUND_LINK_TO_RETURN, RETURN_LINK_TO_OUTBOUND]
+      responses:
+        '200':
+          description: Associated shipments
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrackingResponse' }
+  /track/v1/trackingdocuments:
+    post:
+      tags: [Track]
+      summary: Retrieve tracking documents
+      description: |
+        Requests post-shipment documents such as Signature Proof of Delivery
+        (SPOD), Bill of Lading (BOL), or freight billing documents (FBD).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trackDocumentDetail:
+                  type: object
+                  properties:
+                    documentType:
+                      type: string
+                      enum: [SIGNATURE_PROOF_OF_DELIVERY, BILL_OF_LADING, FREIGHT_BILL_OF_LADING]
+                    documentFormat:
+                      type: object
+                      properties:
+                        documentFormatOptions:
+                          type: array
+                          items: { type: string }
+                        format: { type: string, enum: [PDF, PNG] }
+                trackingNumberInfo:
+                  type: object
+                  properties:
+                    trackingNumber: { type: string }
+      responses:
+        '200':
+          description: Document content (base64-encoded)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: object
+                    properties:
+                      documents:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            contentType: { type: string }
+                            encodedDocument: { type: string, format: byte }
+  /track/v1/notifications:
+    post:
+      tags: [Track]
+      summary: Send shipment notifications
+      description: |
+        Requests email or other notifications for shipment events such as
+        in-transit, exception, and delivery.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trackingEventNotificationDetail:
+                  type: object
+                  properties:
+                    trackingNotifications:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          trackingNumberInfo:
+                            type: object
+                            properties:
+                              trackingNumber: { type: string }
+                          eventNotificationDetail:
+                            type: object
+                            properties:
+                              personalMessage: { type: string }
+                              notificationEventTypes:
+                                type: array
+                                items:
+                                  type: string
+                                  enum:
+                                    - ON_DELIVERY
+                                    - ON_EXCEPTION
+                                    - ON_ESTIMATED_DELIVERY
+                                    - ON_TENDER
+                                    - ON_PICKUP_DRIVER_ARRIVED
+                              notificationDetails:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    notificationType:
+                                      type: string
+                                      enum: [EMAIL]
+                                    emailDetail:
+                                      type: object
+                                      properties:
+                                        emailAddress: { type: string, format: email }
+                                        name: { type: string }
+                                    locale:
+                                      type: object
+                                      properties:
+                                        country: { type: string }
+                                        language: { type: string }
+      responses:
+        '200':
+          description: Notification subscription created
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        OAuth 2.0 access token returned by POST /oauth/token using
+        client_credentials with FedEx Developer Portal credentials.
+  schemas:
+    TrackingRequest:
+      type: object
+      properties:
+        includeDetailedScans:
+          type: boolean
+          description: When true, include per-event detailed scan history
+        trackingInfo:
+          type: array
+          maxItems: 30
+          items:
+            type: object
+            properties:
+              shipDateBegin: { type: string, format: date }
+              shipDateEnd: { type: string, format: date }
+              trackingNumberInfo:
+                type: object
+                properties:
+                  trackingNumber:
+                    type: string
+                    description: FedEx tracking number
+                  carrierCode:
+                    type: string
+                    enum: [FDXE, FDXG, FXSP, FXFR]
+                  trackingNumberUniqueId:
+                    type: string
+    TrackingResponse:
+      type: object
+      properties:
+        transactionId: { type: string }
+        customerTransactionId: { type: string }
+        output:
+          type: object
+          properties:
+            completeTrackResults:
+              type: array
+              items:
+                type: object
+                properties:
+                  trackingNumber: { type: string }
+                  trackResults:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
