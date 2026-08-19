@@ -1,0 +1,919 @@
+{
+  "item": [
+    {
+      "id": "e136a5b5-3f66-4dae-9e04-7e0bd001231c",
+      "name": "Track",
+      "description": {
+        "content": "Track API v1 operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8da12d28-82f8-422b-8f54-2b1dcc12a8f7",
+          "name": "Track by tracking numbers",
+          "request": {
+            "name": "Track by tracking numbers",
+            "description": {
+              "content": "Returns up-to-the-minute package and shipment status, scan events,\nand delivery details for up to 30 tracking numbers per request.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "track",
+                "v1",
+                "trackingnumbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-locale",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "x-customer-transaction-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd8eade4-b01d-424d-8880-f0e315b4a442",
+              "name": "Tracking results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "trackingnumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-locale",
+                    "value": "en_US",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-customer-transaction-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"string\",\n  \"customerTransactionId\": \"string\",\n  \"output\": {\n    \"completeTrackResults\": [\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": 486.01574844264195,\n            \"key_1\": true,\n            \"key_2\": \"string\"\n          },\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": 587\n          }\n        ]\n      },\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          {\n            \"key_0\": 3316.0300164187306\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2704a291-6f94-4890-99e5-5ff4c393af3d",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "trackingnumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-locale",
+                    "value": "en_US",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-customer-transaction-id",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e1184aa-f069-4aec-939c-bb4fc5a69431",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "trackingnumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-locale",
+                    "value": "en_US",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-customer-transaction-id",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "124ab8b9-8aef-4287-939e-5dbc13374755",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "trackingnumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-locale",
+                    "value": "en_US",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-customer-transaction-id",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "797aec32-7b6c-4832-b75a-12c7907b3bb2",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "trackingnumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-locale",
+                    "value": "en_US",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-customer-transaction-id",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\",\n        \"carrierCode\": \"<string>\",\n        \"trackingNumberUniqueId\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82a31811-ec15-40f5-8bda-e28bba60a2c7",
+          "name": "Track by reference",
+          "request": {
+            "name": "Track by reference",
+            "description": {
+              "content": "Tracks shipments using customer-provided reference identifiers such as\npurchase order (PO), invoice, or Bill of Lading (BOL).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "track",
+                "v1",
+                "referencenumbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"carrierCode\": \"<string>\",\n      \"referenceTypeCode\": \"<string>\",\n      \"value\": \"<string>\",\n      \"destinationCountryCode\": \"<string>\",\n      \"destinationPostalCode\": \"<string>\",\n      \"shipperAccountNumber\": \"<string>\"\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"carrierCode\": \"<string>\",\n      \"referenceTypeCode\": \"<string>\",\n      \"value\": \"<string>\",\n      \"destinationCountryCode\": \"<string>\",\n      \"destinationPostalCode\": \"<string>\",\n      \"shipperAccountNumber\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "600051bc-749c-434f-9f79-f8c1529050bd",
+              "name": "Tracking results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "referencenumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"carrierCode\": \"FDXE\",\n      \"referenceTypeCode\": \"<string>\",\n      \"value\": \"<string>\",\n      \"destinationCountryCode\": \"<string>\",\n      \"destinationPostalCode\": \"<string>\",\n      \"shipperAccountNumber\": \"<string>\"\n    },\n    {\n      \"shipDateBegin\": \"<date>\",\n      \"shipDateEnd\": \"<date>\",\n      \"carrierCode\": \"FDXE\",\n      \"referenceTypeCode\": \"<string>\",\n      \"value\": \"<string>\",\n      \"destinationCountryCode\": \"<string>\",\n      \"destinationPostalCode\": \"<string>\",\n      \"shipperAccountNumber\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"string\",\n  \"customerTransactionId\": \"string\",\n  \"output\": {\n    \"completeTrackResults\": [\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": 486.01574844264195,\n            \"key_1\": true,\n            \"key_2\": \"string\"\n          },\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": 587\n          }\n        ]\n      },\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          {\n            \"key_0\": 3316.0300164187306\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a968c61-8ba5-467f-9a3c-17204e9e1e81",
+          "name": "Track by Transportation Control Number (TCN)",
+          "request": {
+            "name": "Track by Transportation Control Number (TCN)",
+            "description": {
+              "content": "Tracks shipments using the U.S. Government Transportation Control\nNumber (TCN). TCN tracking is intended for U.S. Government users.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "track",
+                "v1",
+                "tcn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\"\n      }\n    },\n    {\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86552c1a-f5af-4cd3-a0ed-efb2ce78666d",
+              "name": "Tracking results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "tcn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDetailedScans\": \"<boolean>\",\n  \"trackingInfo\": [\n    {\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\"\n      }\n    },\n    {\n      \"trackingNumberInfo\": {\n        \"trackingNumber\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"string\",\n  \"customerTransactionId\": \"string\",\n  \"output\": {\n    \"completeTrackResults\": [\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": 486.01574844264195,\n            \"key_1\": true,\n            \"key_2\": \"string\"\n          },\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": 587\n          }\n        ]\n      },\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          {\n            \"key_0\": 3316.0300164187306\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45ff93b6-72bf-460e-9061-b579d64c1634",
+          "name": "Track associated shipments (multi-piece)",
+          "request": {
+            "name": "Track associated shipments (multi-piece)",
+            "description": {
+              "content": "Returns associated tracking information for multiple-piece shipments\n(MPS) - related child tracking numbers for a given master.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "track",
+                "v1",
+                "associatedshipments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"masterTrackingNumberInfo\": {\n    \"trackingNumberInfo\": {\n      \"trackingNumber\": \"<string>\"\n    }\n  },\n  \"associatedType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ae388f0-6919-4508-9272-92ec2c0ea342",
+              "name": "Associated shipments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "associatedshipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"masterTrackingNumberInfo\": {\n    \"trackingNumberInfo\": {\n      \"trackingNumber\": \"<string>\"\n    }\n  },\n  \"associatedType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"string\",\n  \"customerTransactionId\": \"string\",\n  \"output\": {\n    \"completeTrackResults\": [\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": 486.01574844264195,\n            \"key_1\": true,\n            \"key_2\": \"string\"\n          },\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": 587\n          }\n        ]\n      },\n      {\n        \"trackingNumber\": \"string\",\n        \"trackResults\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          {\n            \"key_0\": 3316.0300164187306\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c60b9b91-79ab-4758-b8a4-107a3355fd77",
+          "name": "Retrieve tracking documents",
+          "request": {
+            "name": "Retrieve tracking documents",
+            "description": {
+              "content": "Requests post-shipment documents such as Signature Proof of Delivery\n(SPOD), Bill of Lading (BOL), or freight billing documents (FBD).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "track",
+                "v1",
+                "trackingdocuments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"trackDocumentDetail\": {\n    \"documentType\": \"<string>\",\n    \"documentFormat\": {\n      \"documentFormatOptions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"format\": \"<string>\"\n    }\n  },\n  \"trackingNumberInfo\": {\n    \"trackingNumber\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc9ff05b-2901-4778-9355-2bbfe8dff5d7",
+              "name": "Document content (base64-encoded)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "trackingdocuments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"trackDocumentDetail\": {\n    \"documentType\": \"<string>\",\n    \"documentFormat\": {\n      \"documentFormatOptions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"format\": \"<string>\"\n    }\n  },\n  \"trackingNumberInfo\": {\n    \"trackingNumber\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"output\": {\n    \"documents\": [\n      {\n        \"contentType\": \"string\",\n        \"encodedDocument\": \"string\"\n      },\n      {\n        \"contentType\": \"string\",\n        \"encodedDocument\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2adcf250-35a7-48f7-8b8f-931039c37396",
+          "name": "Send shipment notifications",
+          "request": {
+            "name": "Send shipment notifications",
+            "description": {
+              "content": "Requests email or other notifications for shipment events such as\nin-transit, exception, and delivery.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "track",
+                "v1",
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"trackingEventNotificationDetail\": {\n    \"trackingNotifications\": [\n      {\n        \"trackingNumberInfo\": {\n          \"trackingNumber\": \"<string>\"\n        },\n        \"eventNotificationDetail\": {\n          \"personalMessage\": \"<string>\",\n          \"notificationEventTypes\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"notificationDetails\": [\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            },\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"trackingNumberInfo\": {\n          \"trackingNumber\": \"<string>\"\n        },\n        \"eventNotificationDetail\": {\n          \"personalMessage\": \"<string>\",\n          \"notificationEventTypes\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"notificationDetails\": [\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            },\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a3f15818-fc20-4c86-97e7-b3575210fe16",
+              "name": "Notification subscription created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "track",
+                    "v1",
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"trackingEventNotificationDetail\": {\n    \"trackingNotifications\": [\n      {\n        \"trackingNumberInfo\": {\n          \"trackingNumber\": \"<string>\"\n        },\n        \"eventNotificationDetail\": {\n          \"personalMessage\": \"<string>\",\n          \"notificationEventTypes\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"notificationDetails\": [\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            },\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"trackingNumberInfo\": {\n          \"trackingNumber\": \"<string>\"\n        },\n        \"eventNotificationDetail\": {\n          \"personalMessage\": \"<string>\",\n          \"notificationEventTypes\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"notificationDetails\": [\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            },\n            {\n              \"notificationType\": \"<string>\",\n              \"emailDetail\": {\n                \"emailAddress\": \"<email>\",\n                \"name\": \"<string>\"\n              },\n              \"locale\": {\n                \"country\": \"<string>\",\n                \"language\": \"<string>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apis.fedex.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "39092743-df6f-49fd-99a6-c72a8a2ce00e",
+    "name": "FedEx Authorization Track API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI 3.1 specification covering the FedEx OAuth 2.0 token endpoint and\nthe core FedEx Track API v1 operations as documented on the FedEx Developer\nPortal (https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html).\nIncludes tracking by tracking number, tracking by reference,\ntracking by Transportation Control Number (TCN), associated shipments,\ndocument retrieval, and shipment notifications. Schemas are intentionally\npermissive to remain compatible with the live FedEx payloads; consult the\nFedEx Developer Portal for full payload field definitions.\n\n\nContact Support:\n Name: FedEx Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

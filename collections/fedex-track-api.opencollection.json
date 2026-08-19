@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FedEx Authorization Track API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Track",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Track by tracking numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apis.fedex.com/track/v1/trackingnumbers",
+            "headers": [
+              {
+                "name": "x-locale",
+                "value": ""
+              },
+              {
+                "name": "x-customer-transaction-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns up-to-the-minute package and shipment status, scan events,\nand delivery details for up to 30 tracking numbers per request.\n"
+        },
+        {
+          "info": {
+            "name": "Track by reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apis.fedex.com/track/v1/referencenumbers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks shipments using customer-provided reference identifiers such as\npurchase order (PO), invoice, or Bill of Lading (BOL).\n"
+        },
+        {
+          "info": {
+            "name": "Track by Transportation Control Number (TCN)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apis.fedex.com/track/v1/tcn",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks shipments using the U.S. Government Transportation Control\nNumber (TCN). TCN tracking is intended for U.S. Government users.\n"
+        },
+        {
+          "info": {
+            "name": "Track associated shipments (multi-piece)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apis.fedex.com/track/v1/associatedshipments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns associated tracking information for multiple-piece shipments\n(MPS) - related child tracking numbers for a given master.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve tracking documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apis.fedex.com/track/v1/trackingdocuments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests post-shipment documents such as Signature Proof of Delivery\n(SPOD), Bill of Lading (BOL), or freight billing documents (FBD).\n"
+        },
+        {
+          "info": {
+            "name": "Send shipment notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apis.fedex.com/track/v1/notifications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests email or other notifications for shipment events such as\nin-transit, exception, and delivery.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
