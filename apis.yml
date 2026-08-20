@@ -32,6 +32,16 @@ tags:
 - Rating
 - Shipping
 - Tracking
+- Webhook
+- Fortune 100
+tags_raw:
+- Address Validation
+- Freight
+- Logistics
+- Pickup
+- Rating
+- Shipping
+- Tracking
 - Webhooks
 - Fortune 100
 url: https://raw.githubusercontent.com/api-evangelist/fedex/refs/heads/main/apis.yml
@@ -133,6 +143,8 @@ apis:
   baseURL: https://apis.fedex.com
   tags:
   - Authentication
+  tags_raw:
+  - Authentication
   - OAuth
   properties:
   - type: Documentation
@@ -145,6 +157,10 @@ apis:
   humanURL: https://developer.fedex.com/api/en-us/catalog/svm/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
+  - Webhook
+  - Tracking
+  - Shipping
+  tags_raw:
   - Webhooks
   - Tracking
   - Shipping
