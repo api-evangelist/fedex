@@ -202,6 +202,9 @@ apis:
   - type: OpenAPI
     url: openapi/fedex-track-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/fedex-capability-edges.yml
+  name: FedEx Business Capability Map
 - type: AgenticAccess
   url: agentic-access/fedex-agentic-access.yml
 - type: DomainSecurity
