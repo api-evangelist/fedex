@@ -57,6 +57,8 @@ tags_raw:
 - Webhooks
 - Fortune 100
 url: https://raw.githubusercontent.com/api-evangelist/fedex/refs/heads/main/apis.yml
+x-api-posture: partner-gated
+x-api-posture-basis: observed
 specificationVersion: '0.23'
 apis:
 - aid: fedex:track
