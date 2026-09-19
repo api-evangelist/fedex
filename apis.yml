@@ -41,7 +41,7 @@ tags:
 - Freight
 - Logistics
 - Pickup
-- Rating
+- Ratings
 - Shipping
 - Tracking
 - Webhook
@@ -102,6 +102,10 @@ apis:
   humanURL: https://developer.fedex.com/api/en-us/catalog/rate/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
+  - Ratings
+  - Shipping
+  - Pricing
+  tags_raw:
   - Rating
   - Shipping
   - Pricing
@@ -143,6 +147,9 @@ apis:
   humanURL: https://developer.fedex.com/api/en-us/catalog/locations/v1/docs.html
   baseURL: https://apis.fedex.com
   tags:
+  - Location
+  - Shipping
+  tags_raw:
   - Locations
   - Shipping
   properties:
