@@ -1,7 +1,9 @@
 ---
 title: FedEx and Cisco Transform Business Through AI Workflows
 url: https://www.virtasant.com/ai-today/unlocking-potential-ai-workflows-at-fedex-cisco
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"FedEx" press release artificial intelligence'
 position: 5
 source: serpapi-google

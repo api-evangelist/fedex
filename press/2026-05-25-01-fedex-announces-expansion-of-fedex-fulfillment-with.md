@@ -1,7 +1,9 @@
 ---
 title: FedEx Announces Expansion of FedEx Fulfillment With ...
 url: https://newsroom.fedex.com/newsroom/global-english/fedex-announces-expansion-of-fedex-fulfillment-with-nimble-alliance
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"FedEx" press release artificial intelligence'
 position: 1
 source: serpapi-google

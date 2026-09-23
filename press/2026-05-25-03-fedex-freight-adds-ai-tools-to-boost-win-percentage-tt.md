@@ -1,7 +1,9 @@
 ---
 title: FedEx Freight Adds AI Tools to Boost Win Percentage - TT
 url: https://www.ttnews.com/articles/fedex-freight-ai-tools-2026
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"FedEx" press release artificial intelligence'
 position: 3
 source: serpapi-google

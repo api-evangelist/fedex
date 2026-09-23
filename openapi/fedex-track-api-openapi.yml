@@ -1,24 +1,12 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: FedEx Authorization Track API
+  title: FedEx Track API
   version: 1.0.0
   description: 'OpenAPI 3.1 specification covering the FedEx OAuth 2.0 token endpoint and
 
     the core FedEx Track API v1 operations as documented on the FedEx Developer
 
-    Portal (https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html).
-
-    Includes tracking by tracking number, tracking by reference,
-
-    tracking by Transportation Control Number (TCN), associated shipments,
-
-    document retrieval, and shipment notifications. Schemas are intentionally
-
-    permissive to remain compatible with the live FedEx payloads; consult the
-
-    FedEx Developer Portal for full payload field definitions.
-
-    '
+    Portal (https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html).'
   contact:
     name: FedEx Developer Portal
     url: https://developer.fedex.com/
@@ -40,9 +28,7 @@ paths:
       summary: Track by tracking numbers
       description: 'Returns up-to-the-minute package and shipment status, scan events,
 
-        and delivery details for up to 30 tracking numbers per request.
-
-        '
+        and delivery details for up to 30 tracking numbers per request.'
       parameters:
       - name: x-locale
         in: header
@@ -74,6 +60,8 @@ paths:
           description: Not found
         '500':
           description: Internal server error
+      operationId: postTrackV1Trackingnumbers
+      x-operation-id-source: derived
   /track/v1/referencenumbers:
     post:
       tags:
@@ -81,9 +69,7 @@ paths:
       summary: Track by reference
       description: 'Tracks shipments using customer-provided reference identifiers such as
 
-        purchase order (PO), invoice, or Bill of Lading (BOL).
-
-        '
+        purchase order (PO), invoice, or Bill of Lading (BOL).'
       requestBody:
         required: true
         content:
@@ -130,6 +116,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrackingResponse'
+      operationId: postTrackV1Referencenumbers
+      x-operation-id-source: derived
   /track/v1/tcn:
     post:
       tags:
@@ -137,9 +125,7 @@ paths:
       summary: Track by Transportation Control Number (TCN)
       description: 'Tracks shipments using the U.S. Government Transportation Control
 
-        Number (TCN). TCN tracking is intended for U.S. Government users.
-
-        '
+        Number (TCN). TCN tracking is intended for U.S. Government users.'
       requestBody:
         required: true
         content:
@@ -167,6 +153,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrackingResponse'
+      operationId: postTrackV1Tcn
+      x-operation-id-source: derived
   /track/v1/associatedshipments:
     post:
       tags:
@@ -174,9 +162,7 @@ paths:
       summary: Track associated shipments (multi-piece)
       description: 'Returns associated tracking information for multiple-piece shipments
 
-        (MPS) - related child tracking numbers for a given master.
-
-        '
+        (MPS) - related child tracking numbers for a given master.'
       requestBody:
         required: true
         content:
@@ -206,6 +192,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrackingResponse'
+      operationId: postTrackV1Associatedshipments
+      x-operation-id-source: derived
   /track/v1/trackingdocuments:
     post:
       tags:
@@ -213,9 +201,7 @@ paths:
       summary: Retrieve tracking documents
       description: 'Requests post-shipment documents such as Signature Proof of Delivery
 
-        (SPOD), Bill of Lading (BOL), or freight billing documents (FBD).
-
-        '
+        (SPOD), Bill of Lading (BOL), or freight billing documents (FBD).'
       requestBody:
         required: true
         content:
@@ -270,6 +256,8 @@ paths:
                             encodedDocument:
                               type: string
                               format: byte
+      operationId: postTrackV1Trackingdocuments
+      x-operation-id-source: derived
   /track/v1/notifications:
     post:
       tags:
@@ -277,9 +265,7 @@ paths:
       summary: Send shipment notifications
       description: 'Requests email or other notifications for shipment events such as
 
-        in-transit, exception, and delivery.
-
-        '
+        in-transit, exception, and delivery.'
       requestBody:
         required: true
         content:
@@ -342,8 +328,32 @@ paths:
       responses:
         '200':
           description: Notification subscription created
+      operationId: postTrackV1Notifications
+      x-operation-id-source: derived
 components:
   schemas:
+    TrackingResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        customerTransactionId:
+          type: string
+        output:
+          type: object
+          properties:
+            completeTrackResults:
+              type: array
+              items:
+                type: object
+                properties:
+                  trackingNumber:
+                    type: string
+                  trackResults:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
     TrackingRequest:
       type: object
       properties:
@@ -377,28 +387,6 @@ components:
                     - FXFR
                   trackingNumberUniqueId:
                     type: string
-    TrackingResponse:
-      type: object
-      properties:
-        transactionId:
-          type: string
-        customerTransactionId:
-          type: string
-        output:
-          type: object
-          properties:
-            completeTrackResults:
-              type: array
-              items:
-                type: object
-                properties:
-                  trackingNumber:
-                    type: string
-                  trackResults:
-                    type: array
-                    items:
-                      type: object
-                      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
