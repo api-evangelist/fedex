@@ -78,8 +78,6 @@ apis:
     url: https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html
   - type: GettingStarted
     url: https://developer.fedex.com/api/en-us/get-started.html
-  - url: graphql/fedex-graphql.md
-    type: GraphQL
 - aid: fedex:ship
   name: FedEx Ship API
   description: >-
