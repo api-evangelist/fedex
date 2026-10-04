@@ -332,6 +332,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    TrackingResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        customerTransactionId:
+          type: string
+        output:
+          type: object
+          properties:
+            completeTrackResults:
+              type: array
+              items:
+                type: object
+                properties:
+                  trackingNumber:
+                    type: string
+                  trackResults:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
     TrackingRequest:
       type: object
       properties:
@@ -365,28 +387,6 @@ components:
                     - FXFR
                   trackingNumberUniqueId:
                     type: string
-    TrackingResponse:
-      type: object
-      properties:
-        transactionId:
-          type: string
-        customerTransactionId:
-          type: string
-        output:
-          type: object
-          properties:
-            completeTrackResults:
-              type: array
-              items:
-                type: object
-                properties:
-                  trackingNumber:
-                    type: string
-                  trackResults:
-                    type: array
-                    items:
-                      type: object
-                      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
