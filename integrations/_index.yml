@@ -77,3 +77,16 @@
     builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
+- slug: fedex-bigcommerce-own
+  label: BigCommerce (own)
+  partner: bigcommerce
+  partner_name: BigCommerce (own)
+  category: Shipping & Fulfillment, Fulfillment & Delivery
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.bigcommerce.com/apps/fedex/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
