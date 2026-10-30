@@ -1,4 +1,4 @@
-# FedEx (fedex)
+# FedEx
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,193 +66,131 @@
 
 FedEx is a logistics company that provides shipping and delivery services worldwide. They offer a range of solutions for individuals and businesses, including express shipping, freight services, and e-commerce fulfillment. FedEx publishes a suite of REST APIs covering tracking, shipping, rating, address validation, pickup, locator, trade documents, and post-shipment visibility through their developer portal.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/fedex/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/fedex/refs/heads/main/apis.yml)
+**Areas:** Address Validation · Freight · Logistics · Pickup · Ratings · Shipping · Tracking · Webhook · Fortune 100
 
-## Scope
+## FedEx on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for FedEx is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/fedex/](https://apis.io/providers/fedex/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (10)
 
-- Address Validation
-- Freight
-- Logistics
-- Pickup
-- Rating
-- Shipping
-- Tracking
-- Webhooks
+- [FedEx Track API](https://apis.io/apis/fedex/track/) — Track API allows customers and partners to retrieve up-to-the-minute package and shipment status, scan events, delivery details, and proof of delivery using…
+- [FedEx Ship API](https://apis.io/apis/fedex/ship/) — Ship API lets developers create domestic and international shipments, generate shipping labels, validate addresses, schedule pickups, and manage end-to-end…
+- [FedEx Rate API](https://apis.io/apis/fedex/rate/) — Rate API returns rate quotes and transit times for FedEx Express, Ground, Freight, and SmartPost services so applications can present pricing and delivery…
+- [FedEx Address Validation API](https://apis.io/apis/fedex/address-validation/) — Address Validation API verifies postal addresses for deliverability, classifies them as residential or commercial, and corrects common formatting and…
+- [FedEx Pickup API](https://apis.io/apis/fedex/pickup/) — Pickup API provides programmatic access to schedule, modify, and cancel package pickups, and to determine pickup availability for a given origin and service…
+- [FedEx Locations API](https://apis.io/apis/fedex/locations/) — Locations API helps applications find FedEx Office, FedEx Ship Center, drop boxes, and authorized ship centers near a given address or coordinate, including…
+- [FedEx Authorization API](https://apis.io/apis/fedex/authorization/) — Authorization API issues OAuth 2.0 access tokens used to authenticate all other FedEx API calls. Tokens are obtained via client credentials generated from a…
+- [FedEx Shipment Visibility Webhook](https://apis.io/apis/fedex/shipment-visibility-webhook/) — Shipment Visibility Webhook pushes near real-time tracking events to a registered HTTPS endpoint, eliminating the need to repeatedly poll the Track API for…
+- [FedEx Authorization API](https://apis.io/apis/fedex/fedex-authorization-api/) — OAuth 2.0 token issuance for FedEx APIs
+- [FedEx Track API](https://apis.io/apis/fedex/fedex-track-api/) — Track API v1 operations
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-03-01
-- **Modified:** 2026-05-04
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### FedEx Track API
+GraphQL schemas.
 
-Track API allows customers and partners to retrieve up-to-the-minute package and shipment status, scan events, delivery details, and proof of delivery using tracking numbers, reference numbers, or TCN.
+- [Moved to /providers/fedex/](https://apis.io/graphqls/fedex/fedex-graphql/)
 
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Tracking
-- Shipping
-- Logistics
+- [Fedex Agentic Access](https://apis.io/agentic-access/fedex/fedex-agentic-access/)
 
-#### Properties
+#### Collections (3)
 
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html)
-- [Getting Started](https://developer.fedex.com/api/en-us/get-started.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### FedEx Ship API
+- [FedEx Track API](https://apis.io/collections/fedex/open-fedex/)
+- [FedEx Track Authorization API](https://apis.io/collections/fedex/open-fedex-authorization-api/)
+- [FedEx Authorization Track API](https://apis.io/collections/fedex/open-fedex-track-api/)
 
-Ship API lets developers create domestic and international shipments, generate shipping labels, validate addresses, schedule pickups, and manage end-to-end shipment workflows programmatically.
+#### Security (2)
 
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Fedex Authentication](https://apis.io/security/fedex/fedex-authentication/)
+- [Fedex Domain Security](https://apis.io/security/fedex/fedex-domain-security/)
 
-- Shipping
-- Labels
-- Logistics
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Fedex Plans Pricing](https://apis.io/plans/fedex/fedex-plans-pricing/)
 
-### FedEx Rate API
+#### Rate limits (1)
 
-Rate API returns rate quotes and transit times for FedEx Express, Ground, Freight, and SmartPost services so applications can present pricing and delivery options at checkout or during fulfillment.
+Published request limits.
 
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/rate/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/rate/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
+- [Fedex Rate Limits](https://apis.io/rate-limits/fedex/fedex-rate-limits/)
 
-#### Tags
+#### FinOps (1)
 
-- Rating
-- Shipping
-- Pricing
+What the API costs to run, by operation.
 
-#### Properties
+- [Fedex Finops](https://apis.io/finops/fedex/fedex-finops/)
 
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/rate/v1/docs.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+## Where to find this API
 
-### FedEx Address Validation API
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-Address Validation API verifies postal addresses for deliverability, classifies them as residential or commercial, and corrects common formatting and spelling issues prior to shipment creation.
-
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/address-validation/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/address-validation/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
-
-#### Tags
-
-- Address Validation
-- Shipping
-
-#### Properties
-
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/address-validation/v1/docs.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### FedEx Pickup API
-
-Pickup API provides programmatic access to schedule, modify, and cancel package pickups, and to determine pickup availability for a given origin and service combination.
-
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/pickup/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/pickup/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
-
-#### Tags
-
-- Pickup
-- Shipping
-- Logistics
-
-#### Properties
-
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/pickup/v1/docs.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### FedEx Locations API
-
-Locations API helps applications find FedEx Office, FedEx Ship Center, drop boxes, and authorized ship centers near a given address or coordinate, including hours of operation and supported services.
-
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/locations/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/locations/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
-
-#### Tags
-
-- Locations
-- Shipping
-
-#### Properties
-
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/locations/v1/docs.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### FedEx Authorization API
-
-Authorization API issues OAuth 2.0 access tokens used to authenticate all other FedEx API calls. Tokens are obtained via client credentials generated from a FedEx Developer Portal project.
-
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/authorization/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/authorization/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
-
-#### Tags
-
-- Authentication
-- OAuth
-
-#### Properties
-
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/authorization/v1/docs.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### FedEx Shipment Visibility Webhook
-
-Shipment Visibility Webhook pushes near real-time tracking events to a registered HTTPS endpoint, eliminating the need to repeatedly poll the Track API for shipment status changes.
-
-- **Human URL:** [https://developer.fedex.com/api/en-us/catalog/svm/v1/docs.html](https://developer.fedex.com/api/en-us/catalog/svm/v1/docs.html)
-- **Base URL:** `https://apis.fedex.com`
-
-#### Tags
-
-- Webhooks
-- Tracking
-- Shipping
-
-#### Properties
-
-- [Documentation](https://developer.fedex.com/api/en-us/catalog/svm/v1/docs.html)
-- [Postman Collection](collections/fedex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fedex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/fedex)
 - [Website](https://www.fedex.com/)
 - [Documentation](https://developer.fedex.com/api/en-us/home.html)
-- [Getting Started](https://developer.fedex.com/api/en-us/get-started.html)
-- [Catalog](https://developer.fedex.com/api/en-us/catalog.html)
-- [Sign Up](https://developer.fedex.com/api/en-us/home.html)
-- [Features](undefined)
+- [Getting started](https://developer.fedex.com/api/en-us/get-started.html)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 51.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 18.4 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/fedex/](https://apis.io/providers/fedex/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for FedEx: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/fedex/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
